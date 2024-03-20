@@ -7,12 +7,25 @@
 
 import SwiftUI
 
-struct SelectionView: View {
+struct CurrencySelectionView: View {
+    let currencies = ["USD", "EUR", "GBP", "JPY"]
+    @Binding var selectedCurrencyIndex: Int
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            Picker("Currency", selection: $selectedCurrencyIndex) {
+                ForEach(0..<currencies.count) { index in
+                    Text(self.currencies[index]).tag(index)
+                }
+            }
+            .pickerStyle(SegmentedPickerStyle())
+            .padding()
+        }
     }
 }
 
-#Preview {
-    SelectionView()
+struct CurrencySelectionView_Previews: PreviewProvider {
+    static var previews: some View {
+        CurrencySelectionView(selectedCurrencyIndex: .constant(0))
+    }
 }
